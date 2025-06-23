@@ -1,0 +1,1 @@
+// responsável por carregar a paleta JSON

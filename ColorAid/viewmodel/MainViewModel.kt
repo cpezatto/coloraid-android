@@ -1,0 +1,1 @@
+// ViewModel com estado da tela

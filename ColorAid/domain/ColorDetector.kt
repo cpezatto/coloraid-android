@@ -1,0 +1,1 @@
+// lógica pura de detecção de cor
