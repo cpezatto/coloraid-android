@@ -1,10 +1,8 @@
 package com.claudio.coloraid.ui.screen
 
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
-import android.provider.MediaStore
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,15 +30,26 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import com.claudio.coloraid.data.utils.ColorUtils
 import com.claudio.coloraid.data.loader.loadBasicPalette
 import com.claudio.coloraid.viewmodel.MainViewModel
+import android.graphics.BitmapFactory
+import java.io.File
+import android.provider.MediaStore
+import android.graphics.ImageDecoder
+import androidx.core.content.FileProvider
+import android.Manifest
+import android.widget.Toast
+import androidx.exifinterface.media.ExifInterface
+import android.graphics.Matrix
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
     val context = LocalContext.current
 
     var imageUri by remember { mutableStateOf<Uri?>(null) }
+    var photoUri by remember { mutableStateOf<Uri?>(null) }
     var crossPosition by remember { mutableStateOf<Offset?>(null) }
     var imageBoxSize by remember { mutableStateOf(IntSize.Zero) }
     var imageBoxOffset by remember { mutableStateOf(Offset.Zero) }
+    var showDialog by remember { mutableStateOf(false) }
 
     val bitmap = viewModel.bitmap
     val selectedColor = viewModel.selectedColor
@@ -52,21 +61,57 @@ fun MainScreen(viewModel: MainViewModel) {
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         imageUri = uri
-        Log.d("ColorAid", "Imagem selecionada: $uri")
-        try {
-            uri?.let {
-                val bmp: Bitmap = if (Build.VERSION.SDK_INT < 28) {
-                    MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
-                        .copy(Bitmap.Config.ARGB_8888, false)
-                } else {
-                    val source = ImageDecoder.createSource(context.contentResolver, uri)
-                    ImageDecoder.decodeBitmap(source).copy(Bitmap.Config.ARGB_8888, false)
+        uri?.let {
+            val bmp: Bitmap = if (Build.VERSION.SDK_INT < 28) {
+                MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
+                    .copy(Bitmap.Config.ARGB_8888, false)
+            } else {
+                val source = ImageDecoder.createSource(context.contentResolver, uri)
+                ImageDecoder.decodeBitmap(source).copy(Bitmap.Config.ARGB_8888, false)
+            }
+            viewModel.updateBitmap(bmp)
+        }
+    }
+
+    val takePictureLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture()
+    ) { success ->
+        if (success) {
+            photoUri?.let { uri ->
+                val stream = context.contentResolver.openInputStream(uri)
+                stream?.use {
+                    val tempFile = File(context.cacheDir, "temp_photo.jpg")
+                    tempFile.outputStream().use { output ->
+                        it.copyTo(output)
+                    }
+
+                    val exif = ExifInterface(tempFile.absolutePath)
+                    val orientation = exif.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_NORMAL
+                    )
+
+                    val originalBitmap = BitmapFactory.decodeFile(tempFile.absolutePath)
+                    val rotatedBitmap = when (orientation) {
+                        ExifInterface.ORIENTATION_ROTATE_90 -> rotateBitmap(originalBitmap, 90f)
+                        ExifInterface.ORIENTATION_ROTATE_180 -> rotateBitmap(originalBitmap, 180f)
+                        ExifInterface.ORIENTATION_ROTATE_270 -> rotateBitmap(originalBitmap, 270f)
+                        else -> originalBitmap
+                    }
+
+                    viewModel.updateBitmap(rotatedBitmap)
                 }
-                viewModel.updateBitmap(bmp)
-                Log.d("ColorAid", "Imagem carregada com sucesso!")
-            } ?: Log.e("ColorAid", "URI nula")
-        } catch (e: Exception) {
-            Log.e("ColorAid", "Erro ao carregar imagem", e)
+            }
+        }
+    }
+
+    val cameraPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            photoUri?.let { takePictureLauncher.launch(it) }
+        } else {
+            Toast.makeText(context, "Permissão da câmera negada.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -76,7 +121,6 @@ fun MainScreen(viewModel: MainViewModel) {
         val imageAreaHeight = totalHeight - infoAreaHeight
 
         Column(modifier = Modifier.fillMaxSize()) {
-
             // Área da imagem
             Box(
                 modifier = Modifier
@@ -180,8 +224,44 @@ fun MainScreen(viewModel: MainViewModel) {
                     .padding(12.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                Button(onClick = { launcher.launch("image/*") }) {
+                Button(onClick = { showDialog = true }) {
                     Text("Select Image")
+                }
+
+                if (showDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showDialog = false },
+                        title = { Text("Escolha uma opção") },
+                        text = {
+                            Column {
+                                TextButton(onClick = {
+                                    showDialog = false
+                                    launcher.launch("image/*")
+                                }) {
+                                    Text("Selecionar da Galeria")
+                                }
+
+                                TextButton(onClick = {
+                                    showDialog = false
+                                    val photoFile = File.createTempFile("photo_", ".jpg", context.cacheDir).apply {
+                                        createNewFile()
+                                        deleteOnExit()
+                                    }
+                                    val uri = FileProvider.getUriForFile(
+                                        context,
+                                        "${context.packageName}.provider",
+                                        photoFile
+                                    )
+                                    photoUri = uri
+                                    cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+                                }) {
+                                    Text("Tirar Foto com a Câmera")
+                                }
+                            }
+                        },
+                        confirmButton = {},
+                        dismissButton = {}
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -201,4 +281,9 @@ fun MainScreen(viewModel: MainViewModel) {
             }
         }
     }
+}
+
+fun rotateBitmap(source: Bitmap, angle: Float): Bitmap {
+    val matrix = Matrix().apply { postRotate(angle) }
+    return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
 }
