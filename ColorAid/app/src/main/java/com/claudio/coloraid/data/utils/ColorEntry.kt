@@ -1,4 +1,4 @@
-package com.claudio.coloraid.model
+package com.claudio.coloraid.data.utils
 
 data class ColorEntry(
     val name: String,

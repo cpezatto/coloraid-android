@@ -16,14 +16,12 @@ import androidx.compose.foundation.gestures.drag
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalContext
@@ -31,12 +29,12 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.layout.BoxWithConstraints
-import com.claudio.coloraid.utils.ColorUtils
-import com.claudio.coloraid.utils.loadBasicPalette
+import com.claudio.coloraid.data.utils.ColorUtils
+import com.claudio.coloraid.data.loader.loadBasicPalette
 import com.claudio.coloraid.viewmodel.MainViewModel
 
 @Composable
-fun MainScreen(viewModel: MainViewModel = viewModel()) {
+fun MainScreen(viewModel: MainViewModel) {
     val context = LocalContext.current
 
     var imageUri by remember { mutableStateOf<Uri?>(null) }
@@ -121,38 +119,33 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
                         Box(modifier = Modifier
                             .fillMaxSize()
                             .pointerInput(bmp, imageBoxSize) {
+                                fun updateColorAt(position: Offset) {
+                                    val localX = position.x - imageBoxOffset.x - leftOffset
+                                    val localY = position.y - imageBoxOffset.y - topOffset
+
+                                    if (localX in 0f..renderedWidth && localY in 0f..renderedHeight) {
+                                        val scaleX = bmp.width / renderedWidth
+                                        val scaleY = bmp.height / renderedHeight
+
+                                        val realX = (localX * scaleX).toInt().coerceIn(0, bmp.width - 1)
+                                        val realY = (localY * scaleY).toInt().coerceIn(0, bmp.height - 1)
+
+                                        viewModel.detectColorAt(bmp, realX, realY)
+                                    } else {
+                                        viewModel.clearSelectedColor()
+                                    }
+                                }
+
                                 awaitPointerEventScope {
                                     while (true) {
                                         val down = awaitFirstDown()
                                         crossPosition = down.position
+                                        updateColorAt(down.position)
 
                                         drag(down.id) { change ->
                                             crossPosition = change.position
+                                            updateColorAt(change.position)
                                             change.consume()
-                                        }
-
-                                        crossPosition?.let { pos ->
-                                            val localX = pos.x - imageBoxOffset.x - leftOffset
-                                            val localY = pos.y - imageBoxOffset.y - topOffset
-
-                                            if (localX in 0f..renderedWidth && localY in 0f..renderedHeight) {
-                                                val scaleX = bmp.width / renderedWidth
-                                                val scaleY = bmp.height / renderedHeight
-
-                                                val realX = (localX * scaleX).toInt().coerceIn(0, bmp.width - 1)
-                                                val realY = (localY * scaleY).toInt().coerceIn(0, bmp.height - 1)
-
-                                                val pixel = bmp.getPixel(realX, realY)
-                                                val r = (pixel shr 16) and 0xFF
-                                                val g = (pixel shr 8) and 0xFF
-                                                val b = pixel and 0xFF
-
-                                                val closest = ColorUtils.findClosestColor(r, g, b, palette)
-                                                val color = Color(r, g, b)
-                                                val name = closest?.name ?: "Unknown"
-
-                                                viewModel.updateSelectedColor(color, name, localX, localY)
-                                            }
                                         }
                                     }
                                 }

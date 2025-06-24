@@ -6,37 +6,44 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.compose.ui.graphics.Color
+import com.claudio.coloraid.domain.usecase.DetectColorUseCase
+import com.claudio.coloraid.data.utils.ColorEntry
 
-class MainViewModel : ViewModel() {
+class MainViewModel(
+    private val detectColorUseCase: DetectColorUseCase
+) : ViewModel() {
 
-    // Bitmap da imagem carregada
     var bitmap by mutableStateOf<Bitmap?>(null)
         private set
 
-    // Cor detectada
     var selectedColor by mutableStateOf(Color.Transparent)
         private set
 
-    // Nome da cor (ex: "Red", "Sky Blue")
     var selectedColorName by mutableStateOf("")
         private set
 
-    // Coordenadas do toque
     var touchX by mutableStateOf(0f)
         private set
+
     var touchY by mutableStateOf(0f)
         private set
 
-    // Atualiza o bitmap com uma nova imagem
     fun updateBitmap(newBitmap: Bitmap) {
         bitmap = newBitmap
     }
 
-    // Atualiza a cor detectada e a posição
-    fun updateSelectedColor(color: Color, name: String, x: Float, y: Float) {
+    fun detectColorAt(bitmap: Bitmap, x: Int, y: Int) {
+        val (color, name) = detectColorUseCase.execute(bitmap, x, y)
         selectedColor = color
         selectedColorName = name
-        touchX = x
-        touchY = y
+        touchX = x.toFloat()
+        touchY = y.toFloat()
+    }
+
+    fun clearSelectedColor() {
+        selectedColor = Color.Transparent
+        selectedColorName = ""
+        touchX = 0f
+        touchY = 0f
     }
 }

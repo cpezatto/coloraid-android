@@ -1,8 +1,8 @@
-package com.claudio.coloraid.utils
+package com.claudio.coloraid.data.loader
 
 import android.content.Context
 import android.util.Log
-import com.claudio.coloraid.model.ColorEntry
+import com.claudio.coloraid.data.utils.ColorEntry
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule

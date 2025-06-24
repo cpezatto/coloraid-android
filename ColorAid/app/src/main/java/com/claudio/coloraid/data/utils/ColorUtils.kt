@@ -1,12 +1,12 @@
-package com.claudio.coloraid.utils
+package com.claudio.coloraid.data.utils
 
-import com.claudio.coloraid.model.ColorEntry
+import com.claudio.coloraid.data.utils.ColorEntry
 
 object ColorUtils {
     fun findClosestColor(r: Int, g: Int, b: Int, palette: List<ColorEntry>): ColorEntry? {
         if (palette.isEmpty()) return null
 
-        val targetLab = ColorEntry.rgbToLab(r, g, b)
+        val targetLab = ColorEntry.Companion.rgbToLab(r, g, b)
         return palette.minByOrNull { color ->
             deltaE(targetLab, color.lab)
         }

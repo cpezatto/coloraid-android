@@ -1,0 +1,15 @@
+package com.claudio.coloraid.viewmodel
+
+import android.content.Context
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.claudio.coloraid.data.loader.loadBasicPalette
+import com.claudio.coloraid.domain.usecase.DetectColorUseCase
+
+class MainViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        val palette = loadBasicPalette(context)
+        val useCase = DetectColorUseCase(palette)
+        return MainViewModel(useCase) as T
+    }
+}
