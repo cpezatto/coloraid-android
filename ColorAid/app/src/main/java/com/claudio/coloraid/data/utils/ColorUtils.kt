@@ -1,6 +1,8 @@
 package com.claudio.coloraid.data.utils
 
 import com.claudio.coloraid.data.utils.ColorEntry
+import android.graphics.Bitmap
+import android.graphics.Color
 
 object ColorUtils {
     fun findClosestColor(r: Int, g: Int, b: Int, palette: List<ColorEntry>): ColorEntry? {
@@ -21,5 +23,9 @@ object ColorUtils {
                     (a1 - a2) * (a1 - a2) +
                     (b1 - b2) * (b1 - b2)
         )
+    }
+
+    fun detectColorAt(bitmap: Bitmap, x: Int, y: Int): Int {
+        return bitmap.getPixel(x, y)
     }
 }

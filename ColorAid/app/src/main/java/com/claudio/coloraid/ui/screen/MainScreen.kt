@@ -39,6 +39,7 @@ import android.Manifest
 import android.widget.Toast
 import androidx.exifinterface.media.ExifInterface
 import android.graphics.Matrix
+import com.claudio.coloraid.data.utils.rotateBitmap
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
@@ -281,9 +282,4 @@ fun MainScreen(viewModel: MainViewModel) {
             }
         }
     }
-}
-
-fun rotateBitmap(source: Bitmap, angle: Float): Bitmap {
-    val matrix = Matrix().apply { postRotate(angle) }
-    return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
 }
