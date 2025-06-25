@@ -7,6 +7,8 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.IOException
+import com.claudio.coloraid.R
+
 
 fun loadBasicPalette(context: Context): List<ColorEntry> {
     val path = "basic_colors.json"
@@ -14,21 +16,21 @@ fun loadBasicPalette(context: Context): List<ColorEntry> {
         val inputStream = try {
             context.assets.open(path)
         } catch (e: IOException) {
-            Log.e("PaletteLoader", "Arquivo não encontrado em: /android_asset/$path")
-            throw IllegalStateException("Arquivo JSON não encontrado em: /android_asset/$path")
+            Log.e("PaletteLoader", context.getString(R.string.palette_file_not_found, path))
+            throw IllegalStateException(context.getString(R.string.palette_file_missing_exception, path))
         }
 
         val mapper = ObjectMapper().registerKotlinModule()
         val result = mapper.readValue(inputStream, object : TypeReference<List<ColorEntry>>() {})
-        Log.i("PaletteLoader", "Paleta carregada com ${result.size} cores")
+        Log.i("PaletteLoader", context.getString(R.string.palette_loaded_successfully, result.size))
 
         if (result.isEmpty()) {
-            Log.w("PaletteLoader", "A paleta foi carregada mas está vazia")
+            Log.w("PaletteLoader", context.getString(R.string.palette_loaded_but_empty))
         }
 
         result
     } catch (e: Exception) {
-        Log.e("PaletteLoader", "Erro ao carregar paleta de cores", e)
+        Log.e("PaletteLoader", context.getString(R.string.palette_loading_error), e)
         emptyList()
     }
 }

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ColorAid</string>
+    <string name="select_image">Selecionar Imagem</string>
+    <string name="select_image_title">Escolha uma opção</string>
+    <string name="gallery_option">Selecionar da Galeria</string>
+    <string name="camera_option">Tirar Foto com a Câmera</string>
+    <string name="camera_permission_denied">Permissão da câmera negada.</string>
+    <string name="color_rgb_name">RGB: (%1$d, %2$d, %3$d) Nome: %4$s</string>
+    <string name="selected_image">Imagem Selecionada</string>
+    <string name="palette_file_not_found">Arquivo não encontrado em: /android_asset/%1$s</string>
+    <string name="palette_file_missing_exception">Arquivo JSON não encontrado em: /android_asset/%1$s</string>
+    <string name="palette_loaded_successfully">Paleta carregada com %1$d cores</string>
+    <string name="palette_loaded_but_empty">A paleta foi carregada mas está vazia</string>
+    <string name="palette_loading_error">Erro ao carregar paleta de cores</string>
+</resources>

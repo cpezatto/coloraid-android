@@ -41,6 +41,8 @@ import androidx.exifinterface.media.ExifInterface
 import android.graphics.Matrix
 import com.claudio.coloraid.data.utils.rotateBitmap
 import com.claudio.coloraid.ui.components.ImageCanvas
+import androidx.compose.ui.res.stringResource
+import com.claudio.coloraid.R
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
@@ -110,7 +112,7 @@ fun MainScreen(viewModel: MainViewModel) {
         if (isGranted) {
             photoUri?.let { takePictureLauncher.launch(it) }
         } else {
-            Toast.makeText(context, "Permissão da câmera negada.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.camera_permission_denied), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -118,6 +120,9 @@ fun MainScreen(viewModel: MainViewModel) {
         val totalHeight = maxHeight
         val infoAreaHeight = totalHeight * 0.25f
         val imageAreaHeight = totalHeight - infoAreaHeight
+        val red = (selectedColor.red * 255).toInt()
+        val green = (selectedColor.green * 255).toInt()
+        val blue = (selectedColor.blue * 255).toInt()
 
         Column(modifier = Modifier.fillMaxSize()) {
             // Área da imagem
@@ -145,20 +150,20 @@ fun MainScreen(viewModel: MainViewModel) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Button(onClick = { showDialog = true }) {
-                    Text("Select Image")
+                    Text(stringResource(R.string.select_image))
                 }
 
                 if (showDialog) {
                     AlertDialog(
                         onDismissRequest = { showDialog = false },
-                        title = { Text("Escolha uma opção") },
+                        title = { Text(stringResource(R.string.select_image_title)) },
                         text = {
                             Column {
                                 TextButton(onClick = {
                                     showDialog = false
                                     launcher.launch("image/*")
                                 }) {
-                                    Text("Selecionar da Galeria")
+                                    Text(stringResource(R.string.gallery_option))
                                 }
 
                                 TextButton(onClick = {
@@ -166,7 +171,7 @@ fun MainScreen(viewModel: MainViewModel) {
                                     photoUri = viewModel.createPhotoUri(context)
                                     cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
                                 }) {
-                                    Text("Tirar Foto com a Câmera")
+                                    Text(stringResource(R.string.camera_option))
                                 }
                             }
                         },
@@ -186,7 +191,7 @@ fun MainScreen(viewModel: MainViewModel) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "RGB: (${(selectedColor.red * 255).toInt()}, ${(selectedColor.green * 255).toInt()}, ${(selectedColor.blue * 255).toInt()}) Nome: $colorName",
+                    text = stringResource(R.string.color_rgb_name, red, green, blue, colorName),
                     style = MaterialTheme.typography.bodyLarge
                 )
             }

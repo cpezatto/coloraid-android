@@ -17,6 +17,8 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.input.pointer.consumePositionChange
+import androidx.compose.ui.res.stringResource
+import com.claudio.coloraid.R
 
 @Composable
 fun ImageCanvas(
@@ -60,7 +62,7 @@ fun ImageCanvas(
     ) {
         Image(
             bitmap = bitmap,
-            contentDescription = "Selected Image",
+            contentDescription = stringResource(R.string.selected_image),
             modifier = Modifier.fillMaxSize()
         )
 
