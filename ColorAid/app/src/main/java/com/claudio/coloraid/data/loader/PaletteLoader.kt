@@ -11,7 +11,13 @@ import com.claudio.coloraid.R
 
 
 fun loadBasicPalette(context: Context): List<ColorEntry> {
-    val path = "basic_colors.json"
+    val language = context.resources.configuration.locales[0].language
+    val path = when (language) {
+        "pt" -> "colors_pt.json"
+        "es" -> "colors_es.json"
+        else -> "colors_en.json" // default em inglês
+    }
+
     return try {
         val inputStream = try {
             context.assets.open(path)

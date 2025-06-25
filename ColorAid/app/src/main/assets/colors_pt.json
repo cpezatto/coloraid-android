@@ -1,0 +1,47 @@
+[
+  { "name": "Vermelho", "r": 255, "g": 0, "b": 0 },
+  { "name": "Vermelho Escuro", "r": 139, "g": 0, "b": 0 },
+  { "name": "Salmão", "r": 255, "g": 160, "b": 122 },
+  { "name": "Carmesim", "r": 220, "g": 20, "b": 60 },
+  { "name": "Rosa", "r": 255, "g": 192, "b": 203 },
+  { "name": "Rosa Choque", "r": 255, "g": 105, "b": 180 },
+  { "name": "Magenta", "r": 255, "g": 0, "b": 255 },
+
+  { "name": "Laranja", "r": 255, "g": 165, "b": 0 },
+  { "name": "Laranja Escuro", "r": 255, "g": 140, "b": 0 },
+  { "name": "Amarelo", "r": 255, "g": 255, "b": 0 },
+  { "name": "Amarelo Ouro", "r": 255, "g": 215, "b": 0 },
+  { "name": "Bege", "r": 245, "g": 245, "b": 220 },
+  { "name": "Pêssego", "r": 255, "g": 218, "b": 185 },
+
+  { "name": "Verde", "r": 0, "g": 128, "b": 0 },
+  { "name": "Verde Escuro", "r": 0, "g": 100, "b": 0 },
+  { "name": "Verde Claro", "r": 144, "g": 238, "b": 144 },
+  { "name": "Verde Limão", "r": 50, "g": 205, "b": 50 },
+  { "name": "Verde Oliva", "r": 128, "g": 128, "b": 0 },
+  { "name": "Verde-azulado", "r": 0, "g": 128, "b": 128 },
+  { "name": "Menta", "r": 152, "g": 251, "b": 152 },
+
+  { "name": "Azul", "r": 0, "g": 0, "b": 255 },
+  { "name": "Azul Escuro", "r": 0, "g": 0, "b": 139 },
+  { "name": "Azul Claro", "r": 173, "g": 216, "b": 230 },
+  { "name": "Azul Céu", "r": 135, "g": 206, "b": 235 },
+  { "name": "Azul Marinho", "r": 0, "g": 0, "b": 128 },
+  { "name": "Azul Royal", "r": 65, "g": 105, "b": 225 },
+  { "name": "Turquesa", "r": 64, "g": 224, "b": 208 },
+
+  { "name": "Roxo", "r": 128, "g": 0, "b": 128 },
+  { "name": "Lilás", "r": 221, "g": 160, "b": 221 },
+  { "name": "Lavanda", "r": 230, "g": 230, "b": 250 },
+  { "name": "Violeta", "r": 238, "g": 130, "b": 238 },
+
+  { "name": "Marrom", "r": 165, "g": 42, "b": 42 },
+  { "name": "Marrom Claro", "r": 205, "g": 133, "b": 63 },
+  { "name": "Castanho", "r": 210, "g": 180, "b": 140 },
+
+  { "name": "Cinza", "r": 128, "g": 128, "b": 128 },
+  { "name": "Cinza Escuro", "r": 105, "g": 105, "b": 105 },
+  { "name": "Cinza Claro", "r": 211, "g": 211, "b": 211 },
+  { "name": "Preto", "r": 0, "g": 0, "b": 0 },
+  { "name": "Branco", "r": 255, "g": 255, "b": 255 }
+]

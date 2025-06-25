@@ -1,0 +1,47 @@
+[
+  {"name": "Rojo", "r": 255, "g": 0, "b": 0},
+  {"name": "Rojo Oscuro", "r": 139, "g": 0, "b": 0},
+  {"name": "Salmón", "r": 255, "g": 160, "b": 122},
+  {"name": "Carmesí", "r": 220, "g": 20, "b": 60},
+  {"name": "Rosa", "r": 255, "g": 192, "b": 203},
+  {"name": "Rosa Fucsia", "r": 255, "g": 105, "b": 180},
+  {"name": "Magenta", "r": 255, "g": 0, "b": 255},
+
+  {"name": "Naranja", "r": 255, "g": 165, "b": 0},
+  {"name": "Naranja Oscuro", "r": 255, "g": 140, "b": 0},
+  {"name": "Amarillo", "r": 255, "g": 255, "b": 0},
+  {"name": "Dorado", "r": 255, "g": 215, "b": 0},
+  {"name": "Beige", "r": 245, "g": 245, "b": 220},
+  {"name": "Durazno", "r": 255, "g": 218, "b": 185},
+
+  {"name": "Verde", "r": 0, "g": 128, "b": 0},
+  {"name": "Verde Oscuro", "r": 0, "g": 100, "b": 0},
+  {"name": "Verde Claro", "r": 144, "g": 238, "b": 144},
+  {"name": "Verde Lima", "r": 50, "g": 205, "b": 50},
+  {"name": "Verde Oliva", "r": 128, "g": 128, "b": 0},
+  {"name": "Verde Azulado", "r": 0, "g": 128, "b": 128},
+  {"name": "Menta", "r": 152, "g": 251, "b": 152},
+
+  {"name": "Azul", "r": 0, "g": 0, "b": 255},
+  {"name": "Azul Oscuro", "r": 0, "g": 0, "b": 139},
+  {"name": "Azul Claro", "r": 173, "g": 216, "b": 230},
+  {"name": "Azul Cielo", "r": 135, "g": 206, "b": 235},
+  {"name": "Azul Marino", "r": 0, "g": 0, "b": 128},
+  {"name": "Azul Real", "r": 65, "g": 105, "b": 225},
+  {"name": "Turquesa", "r": 64, "g": 224, "b": 208},
+
+  {"name": "Púrpura", "r": 128, "g": 0, "b": 128},
+  {"name": "Lila", "r": 221, "g": 160, "b": 221},
+  {"name": "Lavanda", "r": 230, "g": 230, "b": 250},
+  {"name": "Violeta", "r": 238, "g": 130, "b": 238},
+
+  {"name": "Marrón", "r": 165, "g": 42, "b": 42},
+  {"name": "Marrón Claro", "r": 205, "g": 133, "b": 63},
+  {"name": "Canela", "r": 210, "g": 180, "b": 140},
+
+  {"name": "Gris", "r": 128, "g": 128, "b": 128},
+  {"name": "Gris Oscuro", "r": 105, "g": 105, "b": 105},
+  {"name": "Gris Claro", "r": 211, "g": 211, "b": 211},
+  {"name": "Negro", "r": 0, "g": 0, "b": 0},
+  {"name": "Blanco", "r": 255, "g": 255, "b": 255}
+]
