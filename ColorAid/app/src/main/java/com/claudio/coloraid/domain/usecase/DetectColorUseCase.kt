@@ -5,20 +5,15 @@ import androidx.compose.ui.graphics.Color
 import com.claudio.coloraid.data.utils.ColorUtils
 import com.claudio.coloraid.data.utils.ColorEntry
 import kotlin.math.min
+import com.claudio.coloraid.data.utils.detectColorAt
+
 
 class DetectColorUseCase(private val palette: List<ColorEntry>) {
 
     fun execute(bitmap: Bitmap, x: Int, y: Int): Pair<Color, String> {
-        val pixel = bitmap.getPixel(x, y)
-        val color = Color(pixel)
-
-        val r = (pixel shr 16) and 0xFF
-        val g = (pixel shr 8) and 0xFF
-        val b = pixel and 0xFF
-
-        val closest = ColorUtils.findClosestColor(r, g, b, palette)
-        val name = closest?.name ?: "Unknown"
-
-        return Pair(color, name)
+        val (r, g, b) = detectColorAt(bitmap, x, y)
+        val color = Color(r / 255f, g / 255f, b / 255f)
+        val name = ColorUtils.findClosestColor(r, g, b, palette)?.name ?: "Unknown"
+        return color to name
     }
 }

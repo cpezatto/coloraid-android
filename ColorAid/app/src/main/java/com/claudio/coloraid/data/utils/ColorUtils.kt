@@ -29,3 +29,11 @@ object ColorUtils {
         return bitmap.getPixel(x, y)
     }
 }
+
+fun detectColorAt(bitmap: Bitmap, x: Int, y: Int): Triple<Int, Int, Int> {
+    val pixel = bitmap.getPixel(x, y)
+    val r = (pixel shr 16) and 0xFF
+    val g = (pixel shr 8) and 0xFF
+    val b = pixel and 0xFF
+    return Triple(r, g, b)
+}

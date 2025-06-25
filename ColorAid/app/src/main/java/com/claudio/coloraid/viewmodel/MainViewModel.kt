@@ -8,6 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.compose.ui.graphics.Color
 import com.claudio.coloraid.domain.usecase.DetectColorUseCase
 import com.claudio.coloraid.data.utils.ColorEntry
+import android.content.Context
+import android.net.Uri
+import androidx.core.content.FileProvider
+import java.io.File
 
 class MainViewModel(
     private val detectColorUseCase: DetectColorUseCase
@@ -46,4 +50,19 @@ class MainViewModel(
         touchX = 0f
         touchY = 0f
     }
+
+    fun createPhotoUri(context: Context): Uri {
+        val photoFile = File.createTempFile("photo_", ".jpg", context.cacheDir).apply {
+            createNewFile()
+            deleteOnExit()
+        }
+
+        return FileProvider.getUriForFile(
+            context,
+            "${context.packageName}.provider",
+            photoFile
+        )
+    }
+
 }
+
