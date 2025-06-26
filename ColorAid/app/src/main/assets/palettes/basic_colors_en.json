@@ -1,0 +1,20 @@
+[
+  { "name": "Red", "r": 255, "g": 0, "b": 0 },
+  { "name": "Pink", "r": 255, "g": 192, "b": 203 },
+  { "name": "Orange", "r": 255, "g": 165, "b": 0 },
+  { "name": "Yellow", "r": 255, "g": 255, "b": 0 },
+  { "name": "Beige", "r": 245, "g": 245, "b": 220 },
+
+  { "name": "Green", "r": 0, "g": 128, "b": 0 },
+  { "name": "Light Green", "r": 144, "g": 238, "b": 144 },
+  { "name": "Blue", "r": 0, "g": 0, "b": 255 },
+  { "name": "Light Blue", "r": 173, "g": 216, "b": 230 },
+  { "name": "Purple", "r": 128, "g": 0, "b": 128 },
+
+  { "name": "Brown", "r": 165, "g": 42, "b": 42 },
+  { "name": "Gray", "r": 128, "g": 128, "b": 128 },
+  { "name": "Light Gray", "r": 211, "g": 211, "b": 211 },
+  { "name": "Black", "r": 0, "g": 0, "b": 0 },
+  { "name": "White", "r": 255, "g": 255, "b": 255 },
+  { "name": "Turquoise", "r": 64, "g": 224, "b": 208 }
+]

@@ -2,21 +2,17 @@ package com.claudio.coloraid.data.loader
 
 import android.content.Context
 import android.util.Log
+import com.claudio.coloraid.R
 import com.claudio.coloraid.data.utils.ColorEntry
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.IOException
-import com.claudio.coloraid.R
+import java.util.Locale
 
-
-fun loadBasicPalette(context: Context): List<ColorEntry> {
-    val language = context.resources.configuration.locales[0].language
-    val path = when (language) {
-        "pt" -> "colors_pt.json"
-        "es" -> "colors_es.json"
-        else -> "colors_en.json" // default em inglês
-    }
+fun loadPalette(context: Context, paletteName: String): List<ColorEntry> {
+    val locale = Locale.getDefault().language
+    val path = "palettes/${paletteName}_colors_${locale}.json"
 
     return try {
         val inputStream = try {
@@ -40,4 +36,3 @@ fun loadBasicPalette(context: Context): List<ColorEntry> {
         emptyList()
     }
 }
-

@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.layout.BoxWithConstraints
 import com.claudio.coloraid.data.utils.ColorUtils
-import com.claudio.coloraid.data.loader.loadBasicPalette
+import com.claudio.coloraid.data.loader.loadPalette
 import com.claudio.coloraid.viewmodel.MainViewModel
 import android.graphics.BitmapFactory
 import java.io.File
@@ -56,7 +56,7 @@ fun MainScreen(viewModel: MainViewModel) {
     val selectedColor = viewModel.selectedColor
     val colorName = viewModel.selectedColorName
 
-    val palette = remember { loadBasicPalette(context) }
+    val palette = remember { loadPalette(context, "standard") }
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
