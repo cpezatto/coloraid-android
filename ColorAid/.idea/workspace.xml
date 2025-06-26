@@ -17,19 +17,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ad3539c-da5a-4bb5-aaef-7f5ee34ff1e9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/palettes/basic_colors_en.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/palettes/basic_colors_es.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/palettes/standard_colors_pt.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/colors_en.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/colors_es.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/colors_pt.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/palettes/basic_colors_pt.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/claudio/coloraid/data/loader/PaletteLoader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/claudio/coloraid/data/loader/PaletteLoader.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/claudio/coloraid/ui/screen/MainScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/claudio/coloraid/ui/screen/MainScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/claudio/coloraid/viewmodel/MainViewModelFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/claudio/coloraid/viewmodel/MainViewModelFactory.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +66,7 @@
         <option value="resourceFile" />
         <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Kotlin Enum" />
       </list>
     </option>
   </component>
